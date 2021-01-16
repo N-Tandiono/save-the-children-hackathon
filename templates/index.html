@@ -7,17 +7,22 @@
 </head>
 
 <body>
-    <div id="feed_content"></div>
+
+    <div class="header">
+        <img src="../static/images/SCA-Logo-from-guidelines.jpg" alt="logo" width="400" height="100">
+    </div>
+    <div class="twitter-feed">
+        Twitter Feed
+        <div id="feed_content"></div>
+    </div>
 </body>
 
 <script>
     setInterval(run_search, 8000);
     function run_search() {
-        var text = 'US';
         $.ajax({
             url: "/feed",
             type: "get",
-            data: { search: text },
             success: function (response) {
                 $("#feed_content").html(response);
             }

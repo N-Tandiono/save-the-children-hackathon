@@ -12,24 +12,21 @@ def index():
 
 @APP.route('/feed')
 def feed():
-    text = request.args.get('search')
-
+    search = ['bushfire', 'flood']
     feeds = []
-
-    if text:
+    
+    for item in search:
         auth = tweepy.OAuthHandler(API_KEY, API_SECRET_KEY)
         auth.set_access_token(ACCESS_TOKEN, ACCESS_SECRET_TOKEN)
 
         api = tweepy.API(auth)
-        public_tweets = api.search(text)
+        public_tweets = api.search(item)
         
         for tweet in public_tweets:
             analysis = TextBlob(tweet.text)
             # data.append({'text': tweet.text, 'sentiment_score': analysis.sentiment})
+            # feeds.append(analysis.sentiment.polarity)
             feeds.append(tweet.text)
-
-
-
     return render_template('feed.html', feed=feeds)
 
 if __name__ == "__main__":
